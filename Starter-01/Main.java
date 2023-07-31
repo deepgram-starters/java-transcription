@@ -100,7 +100,36 @@ public class Main {
                 System.out.println("Audio file: " + audioFile);
 
                 // Create a URL object with the updated endpoint
-                URL url = new URL("https://api.deepgram.com/v1/listen");
+                String requestUrl = "https://api.deepgram.com/v1/listen";
+                StringBuilder urlParams = new StringBuilder();
+
+                // Prepare the request body
+                JSONObject requestBodyJson = new JSONObject();
+                try{
+                requestBodyJson.put("model", model);
+                requestBodyJson.put("url", audio_url);
+                requestBodyJson.put("tier", tier);
+                // Add the "features" parameter directly to the request body
+                if (features != null) {
+                    Iterator<String> featuresKeys = features.keys();
+                    while (featuresKeys.hasNext()) {
+                        String key = featuresKeys.next();
+                        Object value = features.get(key);
+                        urlParams.append("&").append(key).append("=").append(value);
+                    }
+                }
+                } catch (JSONException e) {
+                    // Handle JSON parsing exception
+                    System.out.println("Error parsing request body");
+                }
+
+                // Append the URL parameters to the request URL
+                requestUrl += "?" + urlParams.toString();
+
+                // Create a URL object with the updated endpoint
+                URL url = new URL(requestUrl);
+
+                System.out.println("Request body: " + requestBodyJson.toString());
 
                 // Open a connection to the URL
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -116,18 +145,6 @@ public class Main {
                 // Enable output and input
                 con.setDoOutput(true);
                 con.setDoInput(true);
-
-                // Prepare the request body
-                JSONObject requestBodyJson = new JSONObject();
-                try{
-                requestBodyJson.put("model", model);
-                requestBodyJson.put("url", audio_url);
-                requestBodyJson.put("tier", tier);
-                requestBodyJson.put("features", features);
-                } catch (JSONException e) {
-                    // Handle JSON parsing exception
-                    System.out.println("Error parsing request body");
-                }
 
                 // If audioFile is not null, send the audio data as bytes
                 if (audioFile != null) {
