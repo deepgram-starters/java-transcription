@@ -15,7 +15,7 @@ public class FrontendServer extends NanoHTTPD {
         if (uri.equals("/")) {
             uri = "/index.html"; // Default to index.html if root is requested
         }
-        String filePath = "./build" + uri;
+        String filePath = "./static" + uri;
 
         try {
             return newChunkedResponse(Response.Status.OK, getMimeTypeForFile(uri), getFileInputStream(filePath));
