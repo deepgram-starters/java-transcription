@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Base64;
+import java.nio.charset.StandardCharsets;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -47,21 +49,23 @@ public class Main {
             httpExchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
             httpExchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 
-            System.out.println("Request: " + httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+            // System.out.println("Request: " + httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
             if ("POST".equals(httpExchange.getRequestMethod())) {
                 // Get the request body as an InputStream
                 InputStream requestBody = httpExchange.getRequestBody();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(requestBody));
+
                 StringBuilder formData = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
                     formData.append(line);
                 }
 
+                System.out.println("Request body: " + formData.toString());
+                
+
                 // Separate the form data parts
                 String[] formDataParts = formData.toString().split("------WebKitFormBoundary");
-
-                System.out.println("Form data parts: " + Arrays.toString(formDataParts));
 
                 String audio_url = null;
                 String model = null;
@@ -87,8 +91,14 @@ public class Main {
                             System.out.println("Error parsing features data");
                         }
                     } else if (formDataPart.contains("name=\"file\"")) {
-                        System.out.println("Audio file data: " + formDataPart);
-                        audioFile = formDataPart.getBytes();
+                        try{
+                        System.out.println("Audio file: " + formDataPart);
+                        saveAudioToFile(formDataPart.getBytes(), "output.mp3");
+                        audioFile = extractAudioData(formDataPart);
+                        }
+                        catch (Exception e) {
+                            System.out.println("Error parsing audio file");
+                        }
                     }
                 }
 
@@ -97,7 +107,11 @@ public class Main {
                 System.out.println("Model: " + model);
                 System.out.println("Tier: " + tier);
                 System.out.println("Features: " + features);
-                System.out.println("Audio file: " + audioFile);
+                try{
+                System.out.println("Audio file: " + audioFile.toString().substring(0, 1000) + "...");
+                } catch (Exception e) {
+                    System.out.println("Error printing audio file");
+                }
 
                 // Create a URL object with the updated endpoint
                 String requestUrl = "https://api.deepgram.com/v1/listen";
@@ -139,7 +153,6 @@ public class Main {
 
                 // Set request headers
                 con.setRequestProperty("accept", "application/json");
-                con.setRequestProperty("content-type", "application/json");
                 con.setRequestProperty("Authorization", "Token " + deepgramAccessToken);
 
                 // Enable output and input
@@ -147,14 +160,16 @@ public class Main {
                 con.setDoInput(true);
 
                 // If audioFile is not null, send the audio data as bytes
-                if (audioFile != null) {
-                    con.setRequestProperty("Content-Type", "audio/wav");
-                    try (OutputStream out = con.getOutputStream()) {
-                        out.write(audioFile);
-                    }
+                if ( audioFile != null) {
+                        // Set the request content type to audio/wav or any other appropriate audio format
+                        con.setRequestProperty("Content-Type", "audio/mp3");
+
+                        try (OutputStream out = con.getOutputStream()) {
+                            out.write(audioFile);
+                        }
                 } else {
                     // Otherwise, send the URL in the JSON body
-                    con.setRequestProperty("Content-Type", "application/json");
+                    con.setRequestProperty("content-Type", "application/json");
                     try (OutputStream out = con.getOutputStream()) {
                         out.write(requestBodyJson.toString().getBytes());
                     }
@@ -233,12 +248,29 @@ public class Main {
             return null; // Return null if the pattern is not found
         }
 
-        private byte[] extractAudioFile(String formDataPart) {
-            int startIndex = formDataPart.indexOf("\r\n\r\n") + 4; // Skip the header
-            int endIndex = formDataPart.lastIndexOf("\r\n------"); // Ignore the boundary at the end
-            if (startIndex >= 0 && endIndex >= 0) {
-                return formDataPart.substring(startIndex, endIndex).getBytes();
+        private byte[] extractAudioData(String formDataPart) throws IOException {
+            // Use regex pattern to find the audio data in the form data part
+            Pattern pattern = Pattern.compile("Content-Type: (.*)");
+            Matcher matcher = pattern.matcher(formDataPart);
+
+            Pattern pattern2 = Pattern.compile("Content-Type: audio/wav(.+)");
+            Matcher matcher2 = pattern2.matcher(formDataPart);
+
+            if (matcher2.find()) {
+                String filename = matcher2.group(1);
+                System.out.println("Filename: " + filename);
             }
+
+            if (matcher.find()) {
+                // Extract the audio data from the matched group
+                String audioDataString = matcher.group(1);
+
+                System.out.println("Audio data: " + audioDataString.length());
+
+                // Convert audio data from Base64 string to byte array
+                return audioDataString.getBytes();
+            }
+
             return null;
         }
 
@@ -265,6 +297,16 @@ public class Main {
                 throw new JSONException("No JSON found in the input string.");
             }
         }
+
+        // Function to save the audio data to a file
+        private static void saveAudioToFile(byte[] audioData, String filename) {
+            try (FileOutputStream outputStream = new FileOutputStream(filename)) {
+                outputStream.write(audioData);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         public static JSONObject convertMapToJson(Map<String, Object> map) throws JSONException {
             JSONObject jsonObject = new JSONObject();
