@@ -22,7 +22,6 @@ Install the project dependencies in the `Starter 01` directory.
 
 ```bash
 cd ./Starter-01
-pip install -r requirements.txt
 ```
 
 #### Edit the config file
@@ -39,5 +38,6 @@ deepgram_api_key=api_key
 Once running, you can [access the application in your browser](http://localhost:5000/).
 
 ```bash
-flask run --debug
+javac -cp lib/java-json.jar:lib/java-dotenv-5.2.2.jar:lib/nanohttpd-2.2.0.jar:. Main.java
+java -cp lib/java-json.jar:lib/java-dotenv-5.2.2.jar:lib/nanohttpd-2.2.0.jar:. Main
 ```

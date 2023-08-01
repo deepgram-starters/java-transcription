@@ -88,18 +88,11 @@ public class Main extends NanoHTTPD {
             }
         }
 
-        System.out.println("URL: " + url);
-        System.out.println("File: " + file);
-        System.out.println("Model: " + model);
-        System.out.println("Tier: " + tier);
-        System.out.println("Features: " + features);
-
         // Load environment variables from the .env file
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
         // Get the Deepgram API access token from the environment variables
         String deepgramAccessToken = dotenv.get("deepgram_api_key");
-        System.out.println("Deepgram API access token: " + deepgramAccessToken);
 
         // Create a URL object with the updated endpoint
         String requestUrl = "https://api.deepgram.com/v1/listen";
@@ -133,8 +126,6 @@ public class Main extends NanoHTTPD {
         // Create a URL object with the updated endpoint
         try{
         URL Requrl = new URL(requestUrl);
-
-        System.out.println("Request body: " + requestBodyJson.toString());
         
         // Create a new HTTP connection
         HttpURLConnection con = (HttpURLConnection) Requrl.openConnection();
@@ -150,19 +141,13 @@ public class Main extends NanoHTTPD {
         con.setDoOutput(true);
         con.setDoInput(true);
 
-        // PRINTING THE REQUEST BODY
-        System.out.println("Request body: " + requestBodyJson.toString());
-        System.out.println("Request URL: " + requestUrl);
-
-        System.out.println("Input file: " + audioBytes);
-
         // If inputFile is not null, send the audio data as bytes
         if (url == null) {
             // Set the request content type to audio/wav or any other appropriate audio format
             // Split the file name to find the audio extension, May have other .
             String[] fileSplit = file.split("\\.");
-            System.out.println("Content-Type: " + "audio/" + fileSplit[fileSplit.length - 1]);
-            // con.setRequestProperty("Content-Type", "audio/" + file.getName().split("\\.")[1]);
+
+            // Set the request content type to audio/wav or any other appropriate audio format
             try (OutputStream out = con.getOutputStream()) {
                 // read the file as bytes and write it to the output stream
                 byte[] audioData = Files.readAllBytes(inputFile.toPath());
@@ -212,8 +197,6 @@ public class Main extends NanoHTTPD {
             e.printStackTrace();
             return newFixedLengthResponse("Error: " + e.getMessage());
         }
-
-        System.out.println("Response: " + responseObject.toString());
 
         // Set the response headers
         String responseString = responseObject.toString();
