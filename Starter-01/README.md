@@ -16,12 +16,25 @@ Follow these steps to get started with this starter application.
 
 Go to GitHub and [clone the repository](https://github.com/deepgram-starters/deepgram-python-starters).
 
+#### Install maven
+
+Install maven on your system. Maven is a build automation tool used primarily for Java projects.
+
+Here's how to install maven on [Mac](https://www.baeldung.com/install-maven-on-windows-linux-mac) and [Windows](https://www.baeldung.com/install-maven-on-windows-linux-mac).
+
+If you use homebrew, you can install maven with the following command:
+
+```bash
+brew install maven
+```
+
 #### Install dependencies
 
 Install the project dependencies in the `Starter 01` directory.
 
 ```bash
 cd ./Starter-01
+mvn compile
 ```
 
 #### Edit the config file
@@ -35,9 +48,8 @@ deepgram_api_key=api_key
 
 #### Run the application
 
-Once running, you can [access the application in your browser](http://localhost:5000/).
+Once running, you can [access the application in your browser](http://localhost:8080/).
 
 ```bash
-javac -cp lib/java-json.jar:lib/java-dotenv-5.2.2.jar:lib/nanohttpd-2.2.0.jar:. Main.java
-java -cp lib/java-json.jar:lib/java-dotenv-5.2.2.jar:lib/nanohttpd-2.2.0.jar:. Main
+mvn exec:java -Dexec.mainClass="App"
 ```

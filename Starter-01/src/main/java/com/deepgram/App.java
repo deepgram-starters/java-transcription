@@ -15,9 +15,9 @@ import com.sun.net.httpserver.HttpServer;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class Main extends NanoHTTPD {
+public class App extends NanoHTTPD {
 
-    public Main(int port) {
+    public App(int port) {
         super(port);
     }
 
@@ -233,7 +233,7 @@ public class Main extends NanoHTTPD {
 
     public static void main(String[] args) {
         int port = 8080;
-        Main server = new Main(port);
+        App server = new App(port);
         try {
             server.start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
             System.out.println("Server started on port " + port);
@@ -251,7 +251,6 @@ public class Main extends NanoHTTPD {
         }
     }
 
-    // Your existing API handling code
     private String getParam(Map<String, List<String>> params, String paramName) {
         List<String> values = params.get(paramName);
         return (values != null && !values.isEmpty()) ? values.get(0) : null;
@@ -261,7 +260,5 @@ public class Main extends NanoHTTPD {
         Path path = Paths.get(filePath);
         return Files.readAllBytes(path);
     }
-
-    // Your existing API handling code
 
 }
