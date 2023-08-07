@@ -232,7 +232,7 @@ public class App extends NanoHTTPD {
     }
 
     public static void main(String[] args) {
-        int port = 8080;
+        int port = dotenv.get("port");
         App server = new App(port);
         try {
             server.start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);

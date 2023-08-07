@@ -1,6 +1,6 @@
 # Deepgram Java Starters
 
-Please check out the starters contained in this repository, for examples of how to build Deepgram into your Python-based applications. The starters can be found in their own directories.
+Please check out the starters contained in this repository, for examples of how to build Deepgram into your Java-based applications. The starters can be found in their own directories.
 
 - [Deepgram Java Starter](./Starter-01/README.md)
 

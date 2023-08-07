@@ -1,6 +1,6 @@
 # Deepgram Java Starter
 
-This sample demonstrates interacting with the Deepgram API from a Java server. It uses the Deepgram API with NanoHTTPD Java package to handle API calls, and has a React companion application to interact with the Java integration.
+This sample demonstrates interacting with the Deepgram API from a Java server. It uses the Deepgram API with the NanoHTTPD Java package to handle API calls, and has a javascript client built from web components.
 
 ## Sign-up to Deepgram
 
@@ -42,7 +42,7 @@ mvn compile
 Copy the text from `.env-sample` and create a new file called `.env`. Paste in the code and enter your API key you generated in the [Deepgram console](https://console.deepgram.com/).
 
 ```bash
-port=5000
+port=8080
 deepgram_api_key=api_key
 ```
 
