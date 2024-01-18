@@ -6,25 +6,23 @@ Please check out the starters contained in this repository for examples of how t
 
 ## What is Deepgram?
 
-Deepgram is an AI speech platform which specializes in (NLU) Natural Language Understanding features and Transcription. It can help get the following from your audio.
+[Deepgram](https://deepgram.com/) is a foundational AI company providing speech-to-text and language understanding capabilities to make data readable and actionable by human or machines.
 
-- [Speaker diarization](https://deepgram.com/product/speech-understanding/)
-- [Language detection](https://deepgram.com/product/speech-understanding/)
-- [Summarization](https://deepgram.com/product/speech-understanding/)
-- [Topic detection](https://deepgram.com/product/speech-understanding/)
-- [Language translation](https://deepgram.com/product/speech-understanding/)
-- [Sentiment analysis](https://deepgram.com/product/speech-understanding/)
-- [Entity detection](https://deepgram.com/product/speech-understanding/)
-- [Transcription](https://deepgram.com/product/transcription/)
-- [Redaction](https://deepgram.com/product/transcription/)
+## Sign-up to Deepgram
 
-## Create a Free Deepgram Account
-
-Before you start, it's essential to generate a Deepgram API key to use in our starter applications. [Sign-up now for Deepgram](https://console.deepgram.com/signup).
+Before you start, it's essential to generate a Deepgram API key to use in this project. [Sign-up now for Deepgram and create an API key](https://console.deepgram.com/signup?jump=keys).
 
 ## Issue Reporting
 
 If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Security Policy](./.github/SECURITY.md) details the procedure for contacting Deepgram.
+
+## Getting Help
+
+We love to hear from you so if you have questions, comments or find a bug in the project, let us know! You can either:
+
+- [Open an issue in this repository](https://github.com/deepgram-starters/deepgram-java-starters/issues/new)
+- [Join the Deepgram Github Discussions Community](https://github.com/orgs/deepgram/discussions)
+- [Join the Deepgram Discord Community](https://discord.gg/xWRaCDBtW4)
 
 ## Author
 
