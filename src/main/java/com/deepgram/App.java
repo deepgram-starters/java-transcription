@@ -1,5 +1,6 @@
 import fi.iki.elonen.NanoHTTPD;
 import java.io.*;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -232,7 +233,8 @@ public class App extends NanoHTTPD {
     }
 
     public static void main(String[] args) {
-        int port = dotenv.get("port");
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+        int port = Integer.parseInt(dotenv.get("port"));
         App server = new App(port);
         try {
             server.start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
