@@ -14,13 +14,15 @@ Before you start, it's essential to generate a Deepgram API key to use in this p
 
 ## Quickstart
 
+### Manual
+
 Follow these steps to get started with this starter application.
 
-### Clone the repository
+#### Clone the repository
 
 Go to GitHub and [clone the repository](https://github.com/deepgram-starters/deepgram-python-starters).
 
-### Install maven
+#### Install maven
 
 Install maven on your system. Maven is a build automation tool used primarily for Java projects.
 
@@ -32,7 +34,7 @@ If you use homebrew, you can install maven with the following command:
 brew install maven
 ```
 
-### Install dependencies
+#### Install dependencies
 
 Install the project dependencies in the root directory. You will see a `target` folder created with the compiled classes.
 
@@ -40,7 +42,7 @@ Install the project dependencies in the root directory. You will see a `target` 
 mvn compile
 ```
 
-### Edit the config file
+#### Edit the config file
 
 Copy the text from `.env-sample` and create a new file called `.env`. Paste in the code and enter your API key you generated in the [Deepgram console](https://console.deepgram.com/).
 
@@ -49,7 +51,7 @@ port=8080
 deepgram_api_key=api_key
 ```
 
-### Run the application
+#### Run the application
 
 Once running, you can [access the application in your browser](http://localhost:8080/).
 
