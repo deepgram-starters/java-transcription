@@ -2,7 +2,7 @@
   title = "Java Transcription Starter"
   description = "Get started using Deepgram's Transcription with this Java demo app"
   author = "Deepgram DX Team <devrel@deepgram.com> (https://developers.deepgram.com)"
-  useCase = "Prerecorded"
+  useCase = "STT"
   language = "Java"
 
 [build]
