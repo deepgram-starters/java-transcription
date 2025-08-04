@@ -1,6 +1,6 @@
 # Java Transcription Starter
 
-[![Discord](https://dcbadge.vercel.app/api/server/xWRaCDBtW4?style=flat)](https://discord.gg/xWRaCDBtW4)
+[![Discord](https://dcbadge.limes.pink/api/server/xWRaCDBtW4?style=flat)](https://discord.gg/xWRaCDBtW4)
 
 This sample demonstrates interacting with the Deepgram API from a Java server. It uses the Deepgram API with the NanoHTTPD Java package to handle API calls, and has a javascript client built from web components.
 
