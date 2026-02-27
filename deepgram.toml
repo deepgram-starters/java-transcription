@@ -1,17 +1,41 @@
 [meta]
-  title = "Java Transcription Starter"
-  description = "Get started using Deepgram's Transcription with this Java demo app"
-  author = "Deepgram DX Team <devrel@deepgram.com> (https://developers.deepgram.com)"
-  useCase = "transcription"
-  language = "java"
-  tags = ["transcription", "stt", "speech-to-text", "asr", "pre-recorded", "java"]
+title = "Java Transcription Starter"
+description = "Get started using Deepgram's Transcription with this Java demo app"
+author = "Deepgram DX Team <devrel@deepgram.com> (https://developers.deepgram.com)"
+repository = "https://github.com/deepgram-starters/java-transcription"
+useCase = "transcription"
+language = "Java"
+framework = "Javalin"
+sdk = "N/A"
 
-[build]
-  command = "mvn compile"
+[check]
+command = ["java --version", "mvn --version"]
+message = "Prerequisites OK"
 
-[config]
-  sample = ".env-sample"
-  output = ".env"
+[install]
+command = "mvn clean package -q"
+message = "Dependencies installed and project built"
 
-[post-build]
-  message = "mvn exec:java -Dexec.mainClass=App"
+[install.config]
+sample = "sample.env"
+output = ".env"
+
+[start]
+command = "java -jar target/java-transcription-1.0.0-shaded.jar"
+message = "Server started on port 8081"
+
+[update]
+command = "git submodule update --remote --merge"
+message = "Submodules updated"
+
+[clean]
+command = ["rm -rf target", "rm -rf frontend/dist", "rm -rf frontend/node_modules"]
+message = "Cleaned"
+
+[test]
+command = "cd contracts && ./tests/run-transcription-app.sh"
+message = "Tests complete"
+
+[eject-frontend]
+command = "make eject-frontend"
+message = "Frontend ejected successfully"
