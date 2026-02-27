@@ -54,6 +54,13 @@
             <version>5.2.2</version>
         </dependency>
 
+        <!-- Kotlin stdlib: pin to 1.9.25 to resolve conflict between Javalin (needs 1.9+) and java-dotenv (pulls 1.4.0) -->
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>1.9.25</version>
+        </dependency>
+
         <!-- SLF4J simple logger (required by Javalin/Jetty) -->
         <dependency>
             <groupId>org.slf4j</groupId>
