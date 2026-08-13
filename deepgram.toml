@@ -6,7 +6,7 @@ repository = "https://github.com/deepgram-starters/java-transcription"
 useCase = "transcription"
 language = "Java"
 framework = "Javalin"
-sdk = "N/A"
+sdk = "deepgram-java-sdk"
 
 [check]
 command = ["java --version", "mvn --version"]
